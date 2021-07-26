@@ -1,1 +1,122 @@
-<h1>DOM Play </h1>
+<html>
+    <head>
+        <style>
+            * {padding:0; margin:0;}
+            html {background-color:rgb(149, 251, 163);}
+            body {
+                font-family: Arial, Helvetica, sans-serif;
+                max-width:960px; /* keeps from getting too large on wide screen */
+                width:90%; /* shrink to fit screen */
+                margin:auto; /* center in html element */
+                background-color:rgb(194, 221, 228);
+                padding:20px;
+                min-height:100%; /* keeps from getting too large on wide screen */
+                }
+            p {margin:10px;}
+            h1,h2,h3,h4,h5,h6{
+                font-weight:normal;
+                margin:10px;
+            }
+            h1.masthead {margin-top:0;}
+            footer{
+                text-align:center;
+                clear:both; /* ride below all items */
+            }
+            nav{
+                text-align:center; /* centers the nav */
+            }
+            
+            nav ul{
+                list-style:none; /* removes the bullets */
+            }
+            nav ul li{
+                display:inline-block; /* makes horizontal, but able to declare margins */
+                margin:0 2%; /* margin left-right, gets smaller as necessary */
+            }
+            nav a:hover{
+                text-decoration: none;
+            }
+            #intro{
+                border: 2px solid black;
+                padding: 20px;
+            }
+
+        </style>
+    </head>
+    <body>
+        <h1>DOM Play</h1>
+        <p>This is a webpage that displays a snippet of a Naruto episode script. It will highlight all of each
+            person's lines when you click on a line of the script. </p><br>
+        <div id="intro">
+        <p>A single web page wired with events: a single page application using the DOM. The page:
+        <ul>
+            <ol>With a single click, highlight(bold or otherwise) all lines for a specific actor in a play</ol>
+            <ol>Un-highlight (normal or otherwise) all lines from all other actors in the play</ol>
+            <ol>The function(s) created to do the work must accommodate any number of actors, and any number of additional lines aded to the page</ol>
+            <ol>The page does the work without page re-loads (ie. done via JS and the DOM)</ol>
+            <ol>Page does not use a third party API</ol>
+        </ul>
+        </p>
+        </div><br>
+        <img src="https://m.media-amazon.com/images/M/MV5BZmQ5NGFiNWEtMmMyMC00MDdiLTg4YjktOGY5Yzc2MDUxMTE1XkEyXkFqcGdeQXVyNTA4NzY1MzY@._V1_.jpg" alt="Naruto Picture" height="50%">
+        <div id="play">
+            <p><em><strong>[Later at the at the ramen shop]</strong></em></p>
+            <p><span data-actor="iruka"><strong>Iruka:</strong> Naruto?</span></p>
+            <p><span data-actor="naruto"><strong>Naruto:</strong><em> (while slurbing mouthfuls of ramen)</em> Hmm?</span></p>
+            <p><span data-actor="iruka"><strong>Iruka:</strong> Why would you do that to the hokage faces? I mean, you know who the Hokage are don't you?</span></p>
+            <p><span data-actor="naruto"><strong>Naruto:</strong><em>-slurp-</em>Course I do. <em>-slurp</em> Everybody knows. 
+                They were the greatest shinobi of their time, right? The best of the best undefeated ninja champs. And the 
+                fourth Hokage is the one who saved the vollage from the nine-tails fox. He was he most amazing.</span></p>
+            <p><span data-actor="iruka"><strong>Iruka:</strong> Then why did you-</span></p>
+            <p><span data-actor="naruto"><strong>Naruto:</strong> Because I'm going to be greater than any of them. Me, Naruto,
+                the next Hokage. Points his chopsticks at Iruka. A ninja legend! Then everyone will have to stop disrespecting me and look
+                up to me! Believe it!! Uh..by the way, I kinda wanna ask a little favor sensei.</span></p>
+            <p><span data-actor="iruka"><strong>Iruka:</strong> You want another bowl?</span></p>
+            <p><span data-actor="naruto"><strong>Naruto:</strong> Um um. Well...I wanna try on your headband. Come on, please</span></p>
+            <p><span data-actor="iruka"><strong>Iruka:</strong> Uh...oh this? <em>(touches headband)</em> No way. You can only wear the leaf 
+                headband when you've finally graduate from the academy and become a ninja. You've gotta pass the test tomorrow.</span></p>
+            <p><span data-actor="naruto"><strong>Naruto:</strong> That is so uncool!</span></p>
+            <p><span data-actor="iruka"><strong>Iruka:</strong> Ha ha. Hey, is that why you took off your goggles?</span></p>
+            <p><span data-actor="naruto"><strong>Naruto:</strong> Uuhhh...I want another bowl! Iruka begins to laugh hysterically.</span></p>
+            <p>[The next day at the academy...]</p>
+            <p><span data-actor="iruka"><strong>Iruka:</strong> We will now start the final exam. When your name is called proceed to the testing room.
+                The final test will be on the clone jutsu.</span></p>
+            <p><span data-actor="mizuki"><strong>Mizuki:</strong> Iruka, he's off and his moves weren't bad, but he did hang in there and replicate. This 
+                is his third try so you know he really wants to become a ninja. We could cut him a break and pass him.</span></p>
+            <p><span data-actor="iruka"><strong>Iruka:</strong> Mizuki-sensei, the other students created at least three effective replications. But Naruto 
+                could cut him a break and pass him.</span></p>
+            <p><span data-actor="mizuki"><strong>Mizuki:</strong> Let's give him one more chance then!</span></p>
+            
+        
+        </div>
+        <footer>
+            <p>&copy; 2021 All Rights Reserved ~ <a href="https://validator.w3.org/nu/?doc=https://mchen162.github.io/it121-dom-play/" target="_blank">Check HTML</a> ~ <a href="https://jigsaw.w3.org/css-validator/check?uri=referer" target="_blank">Check CSS</a></p>
+        </footer>
+        <script>
+
+            const spans = document.querySelectorAll('div#play span');
+
+            console.log(spans);
+
+            for(const mySpan of spans) {
+                mySpan.addEventListener('click', function(ev){
+                    //alert(mySpan.dataset.actor);
+                    highlightActor(mySpan.dataset.actor);
+
+
+                });
+            }
+
+            function highlightActor(myActor){
+
+                for(const mySpan of spans){
+                    if(myActor == mySpan.dataset.actor){
+                        mySpan.style.backgroundColor = 'yellow';
+                    }else{
+                        mySpan.style.backgroundColor = 'white';
+                    }
+                }
+            } 
+        </script>
+    </body>
+</html>
